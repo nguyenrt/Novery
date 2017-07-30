@@ -1,0 +1,27 @@
+<h1>Search</h1>
+
+<input type="text" (keyup)="getQuery()" [(ngModel)]="_searchStr" class="form-control" placeholder="Search Content" />
+
+<br />
+
+<table class='table' *ngIf="_searchResults">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Details</th>
+            <th>Platforms</th>
+            <th>Cover</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let result of _searchResults">
+            <td><input name="" id="" class="btn btn-primary" type="button" value="Add" /></td>
+            <td><input name="" id="" class="btn btn-primary" type="button" value="Details" (click)="redirectUrl(result.site_detail_url)" /></td>
+            <td>{{ result.name }}</td>
+            <td>{{ result.deck }}</td>
+            <td>{{ result.all_platforms }}</td>
+            <td><img src="{{ result.cover_image }}" /></td>
+        </tr>
+    </tbody>
+</table>
