@@ -1,0 +1,8 @@
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\bin\Debug\netcoreapp1.1\Novery.deps.json
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\bin\Debug\netcoreapp1.1\Novery.runtimeconfig.json
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\bin\Debug\netcoreapp1.1\Novery.runtimeconfig.dev.json
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\bin\Debug\netcoreapp1.1\Novery.dll
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\bin\Debug\netcoreapp1.1\Novery.pdb
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\obj\Debug\netcoreapp1.1\Novery.AssemblyInfo.cs
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\obj\Debug\netcoreapp1.1\Novery.dll
+C:\Users\Richard\Documents\Visual Studio 2017\Projects\Novery\obj\Debug\netcoreapp1.1\Novery.pdb
