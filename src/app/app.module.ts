@@ -3,6 +3,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MdTabsModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
@@ -22,7 +24,9 @@ function initConfig(config: AppConfig) {
     FormsModule,
     HttpModule,
     JsonpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    MdTabsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AppConfig,
