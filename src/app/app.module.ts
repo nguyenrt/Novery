@@ -1,4 +1,4 @@
-// Declarations
+﻿// Declarations
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { CollectionComponent } from './collection/collection.component';
@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MdTabsModule, MdTooltipModule } from '@angular/material';
+//import { MdTabsModule, MdTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 
@@ -33,10 +33,10 @@ export function initConfig(config: AppConfig) {
     HttpModule,
     JsonpModule,
     NgbModule.forRoot(),
-    MdTabsModule,
+    //MdTabsModule,
     BrowserAnimationsModule,
-    Ng2TableModule,
-    MdTooltipModule
+    Ng2TableModule//,
+    //MdTooltipModule
   ],
   providers: [
     AppConfig,
