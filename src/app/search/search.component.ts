@@ -15,7 +15,7 @@ export class SearchComponent {
     public _searchResults: SearchResults[];
     public _jsonp: Jsonp;
     public _searchStr = '';
-
+    position = 'above';
     private _resource = 'game';
     private _url: string;
 

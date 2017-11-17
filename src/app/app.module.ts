@@ -1,13 +1,19 @@
+// Declarations
+import { AppComponent } from './app.component';
+import { SearchComponent } from './search/search.component';
+import { CollectionComponent } from './collection/collection.component';
+
+// Imports
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MdTabsModule } from '@angular/material';
+import { MdTabsModule, MdTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
 
-import { AppComponent } from './app.component';
-import { SearchComponent } from './search/search.component';
+// Other
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppConfig } from './config/app.config';
 
 export function initConfig(config: AppConfig) {
@@ -18,6 +24,8 @@ export function initConfig(config: AppConfig) {
   declarations: [
     AppComponent,
     SearchComponent
+    // ,
+    // CollectionComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +34,9 @@ export function initConfig(config: AppConfig) {
     JsonpModule,
     NgbModule.forRoot(),
     MdTabsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2TableModule,
+    MdTooltipModule
   ],
   providers: [
     AppConfig,
