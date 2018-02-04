@@ -12,15 +12,14 @@
           (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
 </ng-table>
-<pagination *ngIf="config.paging"
-            class="pagination-sm"
-            [(ngModel)]="page"
-            [totalItems]="length"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
-            [boundaryLinks]="true"
-            [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
-            (numPages)="numPages = $event">
-</pagination>
+<!-- <pagination
+  [count]="someCountVar"
+  [page]="somePageVar"
+  [perPage]="somePerPageVar"
+  [pagesToShow]="5"
+  [loading]="someLoadingVar"
+  (onPrev)="prevPage()"
+  (onNext)="nextPage()"
+  (onPage)="goToPage($event)">
+</pagination> -->
 <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>

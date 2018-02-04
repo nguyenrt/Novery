@@ -1,27 +1,23 @@
-import { Component, Inject, Injectable, OnInit } from '@angular/core';
-import { TableData } from './table-data';
+import { Component, Inject, Injectable } from '@angular/core';
+import { GamesService } from '../services/games.service';
+import { GameCollectionModel } from '../models/game-collection.model';
+import { GameModel } from '../models/game.model';
 
 @Component({
     selector: 'app-collection',
-    templateUrl: './collection.component.html'
+    templateUrl: './collection.component.html',
+    providers: [GamesService]
 })
 
 @Injectable()
-export class CollectionComponent implements OnInit {
-
-    public rows: Array<any> = [];
-    public columns: Array<any> = [
-    {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {
-      title: 'Position',
-      name: 'position',
-      sort: false,
-      filtering: {filterString: '', placeholder: 'Filter by position'}
-    },
-    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', className: 'text-warning', name: 'startDate'},
-    {title: 'Salary ($)', name: 'salary'}
+export class CollectionComponent {
+  public rows: Array<any> = [];
+  public columns: Array<any> = [
+    { title: 'Title', name: 'title', filtering: {filterString: '', placeholder: 'Filter by title'} },
+    { title: 'Platform', name: 'platform', sort: false, filtering: {filterString: '', placeholder: 'Filter by platform'} },
+    { title: 'Developer', className: ['office-header', 'text-success'], name: 'developer', sort: 'asc' },
+    { title: 'Publisher', name: 'publisher', sort: '', filtering: {filterString: '', placeholder: 'Filter by publisher'} },
+    { title: 'Release Date', className: 'text-warning', name: 'releaseDate'}
   ];
   public page = 1;
   public itemsPerPage = 10;
@@ -31,20 +27,22 @@ export class CollectionComponent implements OnInit {
 
   public config: any = {
     paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
+    sorting: { columns: this.columns },
+    filtering: { filterString: '' },
     className: ['table-striped', 'table-bordered']
   };
 
-  private data: Array<any> = TableData;
-    constructor() {
-        this.length = this.data.length;
-    }
+  private data: Array<any> = [];
 
-    public ngOnInit(): void {
+  constructor(private gamesSvc: GamesService) {
+      this.length = this.data.length;
+      gamesSvc.getGameCollection().subscribe((res) => {
+        this.data = res;
         this.onChangeTable(this.config);
-    }
-    public changePage(page: any, data: Array<any> = this.data): Array<any> {
+      });
+  }
+
+  public changePage(page: any, data: Array<any> = this.data): Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
     let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -86,7 +84,7 @@ export class CollectionComponent implements OnInit {
     this.columns.forEach((column: any) => {
       if (column.filtering) {
         filteredData = filteredData.filter((item: any) => {
-          return item[column.name].match(column.filtering.filterString);
+          return item[column.name].toLowerCase().match(column.filtering.filterString.toLowerCase());
         });
       }
     });
@@ -97,14 +95,14 @@ export class CollectionComponent implements OnInit {
 
     if (config.filtering.columnName) {
       return filteredData.filter((item: any) =>
-        item[config.filtering.columnName].match(this.config.filtering.filterString));
+        item[config.filtering.columnName].toLowerCase().match(this.config.filtering.filterString.toLowerCase()));
     }
 
     let tempArray: Array<any> = [];
     filteredData.forEach((item: any) => {
       let flag = false;
       this.columns.forEach((column: any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        if (item[column.name].toString().toLowerCase().match(this.config.filtering.filterString.toLowerCase())) {
           flag = true;
         }
       });

@@ -8,8 +8,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-//import { MdTabsModule, MdTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
+
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 
 // Other
@@ -20,12 +24,12 @@ export function initConfig(config: AppConfig) {
   return () => config.load();
 }
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
-    // ,
-    // CollectionComponent
+    SearchComponent,
+    CollectionComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +37,12 @@ export function initConfig(config: AppConfig) {
     HttpModule,
     JsonpModule,
     NgbModule.forRoot(),
-    //MdTabsModule,
     BrowserAnimationsModule,
-    Ng2TableModule//,
-    //MdTooltipModule
+    Ng2TableModule,
+    RouterModule.forRoot([{path: 'collection', component: CollectionComponent}]),
+    MatTabsModule,
+    MatCardModule,
+    HttpClientModule
   ],
   providers: [
     AppConfig,
