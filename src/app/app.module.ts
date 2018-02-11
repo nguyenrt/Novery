@@ -13,8 +13,10 @@ import { RouterModule } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { Ng2TableModule } from 'ng2-table/ng2-table';
+// import { Ng2TableModule } from 'ng2-table/ng2-table';
 
 // Other
 import { NgModule, APP_INITIALIZER } from '@angular/core';
@@ -38,11 +40,13 @@ export function initConfig(config: AppConfig) {
     JsonpModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
-    Ng2TableModule,
+    // Ng2TableModule,
     RouterModule.forRoot([{path: 'collection', component: CollectionComponent}]),
     MatTabsModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     AppConfig,

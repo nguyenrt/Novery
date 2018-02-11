@@ -3,23 +3,30 @@ import { Jsonp } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import { AppConfig } from '../config/app.config';
-
+import { Observable } from 'rxjs/Observable';
+import { GamesService } from '../services/games.service';
+import { GameModel, SearchResult, Platforms } from '../models/game.model';
 
 @Component({
     selector: 'app-search',
-    templateUrl: './search.component.html'
+    templateUrl: './search.component.html',
+    providers: [GamesService]
 })
 
 @Injectable()
 export class SearchComponent {
-    public _searchResults: SearchResults[];
+    public _searchResults: SearchResult[];
     public _jsonp: Jsonp;
     public _searchStr = '';
     position = 'above';
     private _resource = 'game';
     private _url: string;
 
-    constructor(private config: AppConfig, jsonp: Jsonp) {
+    constructor(
+        private gamesSvc: GamesService
+        , private config: AppConfig
+        , private jsonp: Jsonp
+    ) {
         this._jsonp = jsonp;
         const baseUrl = config.getConfig('vgApiUrl');
         const apiKey = config.getConfig('vgApiKey');
@@ -29,51 +36,35 @@ export class SearchComponent {
                     apiKey + '&limit=' + maxResultCount + '&resources=' + this._resource + '&query=';
     }
 
-    private getResults() {
+    private getResults(): Observable<any> {
         return this._jsonp.get(this._url + this._searchStr)
             .map(res => res.json().results);
     }
 
-    public getQuery() {
-        this.getResults().subscribe((e: SearchResults[]) => {
+    public getQuery(): void {
+        this.getResults().subscribe((e: SearchResult[]) => {
             this._searchResults = e;
-            for (let i of e) {
+            this._searchResults.forEach((item: SearchResult) => {
                 let platforms: string[] = [];
 
-                for (let j of i.platforms) {
-                   platforms.push(j.name);
-                }
+                item.platforms.forEach((platform: Platforms) => {
+                    platforms.push(platform.name);
+                });
 
                 platforms.sort();
-                i.all_platforms = platforms.join(', ');
-                i.cover_image = i.image !== null ? i.image['thumb_url'] : '';
-            }
+                item.all_platforms = platforms.join(', ');
+                item.cover_image = item.image !== null ? item.image['thumb_url'] : '';
+            });
         });
     }
 
-    public redirectUrl(url: string) {
+    public redirectUrl(url: string): void {
         window.open(url, '_blank');
     }
-}
 
-export interface SearchResults {
-    name: string;
-    aliases: string;
-    api_detail_url: string;
-    deck: string;
-    description: string;
-    resource_type: string;
-    image: string[];
-    number_of_user_reviews: number;
-    platforms: Platforms[];
-    all_platforms: string;
-    cover_image: string;
-    site_detail_url: string;
-}
-
-export interface Platforms {
-    abbreviation: string;
-    api_detail_url: string;
-    name: string;
-    site_detail_url: string;
+    public addGame(sr: SearchResult): void {
+        this.gamesSvc.addGame(sr).subscribe(res => {
+            console.log(res);
+        });
+    }
 }

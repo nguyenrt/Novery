@@ -1,6 +1,6 @@
-import { Component, Inject, Injectable } from '@angular/core';
+import { Component, Inject, Injectable, AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { GamesService } from '../services/games.service';
-import { GameCollectionModel } from '../models/game-collection.model';
 import { GameModel } from '../models/game.model';
 
 @Component({
@@ -10,15 +10,18 @@ import { GameModel } from '../models/game.model';
 })
 
 @Injectable()
-export class CollectionComponent {
+export class CollectionComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public dataSource;
   public rows: Array<any> = [];
   public columns: Array<any> = [
     { title: 'Title', name: 'title', filtering: {filterString: '', placeholder: 'Filter by title'} },
     { title: 'Platform', name: 'platform', sort: false, filtering: {filterString: '', placeholder: 'Filter by platform'} },
     { title: 'Developer', className: ['office-header', 'text-success'], name: 'developer', sort: 'asc' },
     { title: 'Publisher', name: 'publisher', sort: '', filtering: {filterString: '', placeholder: 'Filter by publisher'} },
-    { title: 'Release Date', className: 'text-warning', name: 'releaseDate'}
+    { title: 'Release Date', className: 'text-warning', name: 'releaseDateStr'}
   ];
+  public displayedColumns = ['title', 'platform', 'developer', 'publisher', 'releaseDate'];
   public page = 1;
   public itemsPerPage = 10;
   public maxSize = 5;
@@ -38,8 +41,13 @@ export class CollectionComponent {
       this.length = this.data.length;
       gamesSvc.getGameCollection().subscribe((res) => {
         this.data = res;
+        this.dataSource = new MatTableDataSource<any>(res);
         this.onChangeTable(this.config);
       });
+  }
+
+  ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
   }
 
   public changePage(page: any, data: Array<any> = this.data): Array<any> {

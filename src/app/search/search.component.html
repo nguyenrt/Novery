@@ -1,6 +1,4 @@
-﻿<h1>Search</h1>
-
-<input type="text" (keyup)="getQuery()" [(ngModel)]="_searchStr" class="form-control" placeholder="Search Content" />
+﻿<input type="text" (keyup)="getQuery()" [(ngModel)]="_searchStr" class="form-control" placeholder="Search Content" />
 
 <br />
 
@@ -16,11 +14,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let result of _searchResults">
-            <!--<td><input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Add"  mdTooltip="test" [mdTooltipPosition]="position" /></td>
-            <td><input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Details" (click)="redirectUrl(result.site_detail_url)" mdTooltip="test" [mdTooltipPosition]="position" /></td>-->
-
-          <td><input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Add" /></td>
-          <td><input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Details" (click)="redirectUrl(result.site_detail_url)" /></td>
+            <td>
+                <input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Add" (click)=addGame(result)/>
+                <input name="" id="" class="btn btn-primary example-tooltip-host" type="button" value="Details" (click)="redirectUrl(result.site_detail_url)" />
+            </td>
             <td>{{ result.name }}</td>
             <td>{{ result.deck }}</td>
             <td>{{ result.all_platforms }}</td>
