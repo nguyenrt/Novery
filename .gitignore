@@ -43,3 +43,5 @@ testem.log
 Thumbs.db
 
 src/assets/config.development.json
+obj/*
+Properties/PublishProfiles/*
